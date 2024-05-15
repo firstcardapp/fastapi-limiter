@@ -27,7 +27,9 @@ async def http_default_callback(request: Request, response: Response, pexpire: i
     """
     expire = ceil(pexpire / 1000)
     raise HTTPException(
-        HTTP_429_TOO_MANY_REQUESTS, "Too Many Requests", headers={"Retry-After": str(expire)}
+        HTTP_429_TOO_MANY_REQUESTS,
+        "Too Many Requests",
+        headers={"Retry-After": str(expire)},
     )
 
 
@@ -40,7 +42,9 @@ async def ws_default_callback(ws: WebSocket, pexpire: int):
     """
     expire = ceil(pexpire / 1000)
     raise HTTPException(
-        HTTP_429_TOO_MANY_REQUESTS, "Too Many Requests", headers={"Retry-After": str(expire)}
+        HTTP_429_TOO_MANY_REQUESTS,
+        "Too Many Requests",
+        headers={"Retry-After": str(expire)},
     )
 
 
@@ -82,8 +86,8 @@ end"""
         cls.identifier = identifier
         cls.http_callback = http_callback
         cls.ws_callback = ws_callback
-        cls.lua_sha = await redis.script_load(cls.lua_script)
+        cls.lua_sha = redis.script_load(cls.lua_script)
 
     @classmethod
     async def close(cls) -> None:
-        await cls.redis.close()
+        cls.redis.close()
