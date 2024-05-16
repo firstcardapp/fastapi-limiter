@@ -6,7 +6,7 @@ from starlette.requests import Request
 from starlette.responses import Response
 from starlette.websockets import WebSocket
 
-from app.src.modules.fastapi_limiter import FastAPILimiter
+from fastapi_limiter import FastAPILimiter
 
 
 class RateLimiter:
